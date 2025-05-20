@@ -19,8 +19,8 @@ class IndexedPDF:
             pdf_path: str,
             open_ai_client: OpenAI,
             open_ai_embedding_model: str = "text-embedding-3-small",
-            window_size: int = 1,
-            window_overlap: int = 0,
+            window_size: int = 2,
+            window_overlap: int = 1,
     ):
         self.pdf_path = pdf_path
         self.open_ai_client = open_ai_client
