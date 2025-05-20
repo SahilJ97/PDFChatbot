@@ -64,13 +64,11 @@ while True:
     try:
         most_relevant_sections = indexed_pdf.most_relevant_text(query, 5)
     except Exception as e:
-        print("An error occurred while searching the PDF. Traceback:")
-        traceback.print_exc()
+        print("An error occurred while searching the PDF!")
         exit(1)
 
     try:
         print(answer_question_with_retrieved_sections(query, most_relevant_sections))
     except Exception as e:
-        print("An error occurred after retrieving the most relevant sections of the PDF. Traceback:")
-        traceback.print_exc()
+        print("An error occurred after retrieving the most relevant sections of the PDF!")
         exit(1)
