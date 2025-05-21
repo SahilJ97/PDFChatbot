@@ -8,6 +8,8 @@ complete similarity search. A similar system with greater performance requiremen
 vector database with smaller, sensible chunks (perhaps with overlap) for fast and precise lookup. Such a system should 
 also implement guardrails to reduce hallucination and adversarial attacks.
 
+The main script, `chatbot.py`, generally leaves error messages unexposed to the user, instead printing generic error messages such as "An error occurred while searching the PDF." In a higher-stakes setting, where bugs needed to be identified and fixes rolled out, I would probably configure the script to report error tracebacks to some central logging service, accessible only to the developers.
+
 ### Environment
 This project has only been tested with Python 3.9. To set up your environment (e.g., conda, venv), run:
 ```

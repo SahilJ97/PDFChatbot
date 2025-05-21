@@ -23,15 +23,12 @@ class IndexedPDF:
             window_overlap: int = 1,
     ):
         self.pdf_path = pdf_path
-        self.open_ai_client = open_ai_client
+        self._open_ai_client = open_ai_client
         self.embedding_model = open_ai_embedding_model
-
-        if window_overlap >= window_size:
-            raise ValueError("window_overlap must be less than window_size")
 
         embeddings = []
         for section in self._extract_pdf_sections(window_size, window_overlap):
-            embedding_response = self.open_ai_client.embeddings.create(
+            embedding_response = self._open_ai_client.embeddings.create(
                 input=section.text,
                 model=self.embedding_model
             )
@@ -47,6 +44,8 @@ class IndexedPDF:
         window_size: int,
         window_overlap: int
     ) -> Iterator[PDFSection]:
+        if window_overlap >= window_size:
+            raise ValueError("window_overlap must be less than window_size")
 
         # Suppress pypdf's stderr output, as it tends to be a bit noisy
         with silence_c_stderr():
@@ -71,7 +70,7 @@ class IndexedPDF:
             offset += window_size - window_overlap
 
     def most_relevant_text(self, query: str, k: int = 5) -> list[PDFSection]:
-        query_embedding_result = self.open_ai_client.embeddings.create(
+        query_embedding_result = self._open_ai_client.embeddings.create(
             input=query,  # To keep things simple, we embed the query as-is (no context)
             model=self.embedding_model
         )

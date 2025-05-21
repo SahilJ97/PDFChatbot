@@ -48,8 +48,7 @@ def answer_question_with_retrieved_sections(
 try:
     indexed_pdf = IndexedPDF(pdf_path, open_ai_client)
 except Exception as e:
-    print("An error occurred while loading or indexing the PDF. Traceback:")
-    traceback.print_exc()
+    print("An error occurred while loading or indexing the PDF!")
     exit(1)
 
 print(f"Ingested {pdf_path}. Please ask your questions.")
